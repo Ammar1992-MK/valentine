@@ -2,70 +2,60 @@ const yesBtn = document.getElementById('yesBtn');
 const noBtn = document.getElementById('noBtn');
 const firstScreen = document.getElementById('first-screen');
 const secondScreen = document.getElementById('second-screen');
+const music = document.getElementById('loveSong');
 
-let yesSize = 1.2; // Initial font size
 let clickCount = 0;
 
-// Funny phrases for the 'No' button
-const phrases = [
+const noPhrases = [
     "No",
-    "Are you sure?",
+    "Are you sure, Ahlam?",
     "Really sure?",
-    "Think again!",
-    "Last chance!",
-    "Surely not?",
-    "You might regret this!",
-    "Give it another thought!",
-    "Are you absolutely certain?",
-    "This could be a mistake!",
-    "Have a heart!",
-    "Don't be so cold!",
-    "Change of heart?",
-    "Wouldn't you reconsider?",
-    "Is that your final answer?",
-    "You're breaking my heart ;("
+    "Don't do this to me!",
+    "I'm gonna cry...",
+    "You're breaking my heart!",
+    "Just click YES already! ❤️"
 ];
 
 function moveButton() {
     clickCount++;
+    // Change text
+    noBtn.innerHTML = noPhrases[clickCount % noPhrases.length];
     
-    // 1. Make the Yes button bigger
-    yesSize += 0.4; // Increase size
-    yesBtn.style.fontSize = `${yesSize}rem`;
-    yesBtn.style.padding = `${yesSize * 10}px ${yesSize * 20}px`;
-
-    // 2. Change the text on the No button
-    // (We use % to loop back to the start if she clicks too many times)
-    noBtn.innerHTML = phrases[clickCount % phrases.length];
+    // Make Yes button HUGE
+    const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+    yesBtn.style.fontSize = `${currentSize * 1.2}px`;
+    yesBtn.style.width = `${yesBtn.offsetWidth * 1.2}px`;
 }
 
-function nextPage() {
-    // Hide the first screen
+function startCelebration() {
+    // 1. Hide first screen, show second
     firstScreen.style.display = "none";
-    
-    // Show the celebration screen
     secondScreen.classList.remove("hidden");
-    
-    // Trigger confetti
-    launchConfetti();
+
+    // 2. Play Music (Browsers require interaction to play audio, so this works perfectly)
+    music.volume = 0.5;
+    music.play().catch(error => console.log("Music blocked by browser policy"));
+
+    // 3. Start the floating hearts animation
+    setInterval(createHeart, 300);
 }
 
-function launchConfetti() {
-    const duration = 3000;
-    const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML = Math.random() < 0.5 ? '❤️' : '🌹'; // Randomly choose heart or rose
+    
+    // Randomize position and size
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+    
+    // Randomize animation speed
+    heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+    
+    document.body.appendChild(heart);
 
-    const randomInRange = (min, max) => Math.random() * (max - min) + min;
-
-    const interval = setInterval(function() {
-        const timeLeft = animationEnd - Date.now();
-
-        if (timeLeft <= 0) {
-            return clearInterval(interval);
-        }
-
-        const particleCount = 50 * (timeLeft / duration);
-        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-    }, 250);
+    // Remove heart after it floats up to keep browser clean
+    setTimeout(() => {
+        heart.remove();
+    }, 5000);
 }
