@@ -2,14 +2,31 @@ const noBtn = document.getElementById('noBtn');
 const yesBtn = document.getElementById('yesBtn');
 const questionText = document.getElementById('questionText');
 
-// Move the "No" button when touched or hovered
 function moveButton() {
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    // Get the button's current position so it doesn't "snap" to 0,0 first
+    const rect = noBtn.getBoundingClientRect();
     
-    noBtn.style.left = `${x}px`;
-    noBtn.style.top = `${y}px`;
+    // Switch to absolute so it can float anywhere
+    noBtn.style.position = 'fixed';
+    noBtn.style.left = rect.left + 'px';
+    noBtn.style.top = rect.top + 'px';
+
+    // Small delay to let the browser register the fixed position 
+    // before we give it the new random coordinates
+    setTimeout(() => {
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        
+        noBtn.style.left = `${x}px`;
+        noBtn.style.top = `${y}px`;
+    }, 10);
 }
+
+noBtn.addEventListener('mouseover', moveButton);
+noBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault(); // Prevents phone from clicking the button
+    moveButton();
+});
 
 noBtn.addEventListener('mouseover', moveButton);
 noBtn.addEventListener('touchstart', moveButton); // For mobile users
