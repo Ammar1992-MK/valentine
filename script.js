@@ -1,49 +1,39 @@
-const noBtn = document.getElementById('noBtn');
-const yesBtn = document.getElementById('yesBtn');
-const questionText = document.getElementById('questionText');
-
-function moveButton() {
-    // Get the button's current position so it doesn't "snap" to 0,0 first
-    const rect = noBtn.getBoundingClientRect();
-    
-    // Switch to absolute so it can float anywhere
-    noBtn.style.position = 'fixed';
-    noBtn.style.left = rect.left + 'px';
-    noBtn.style.top = rect.top + 'px';
-
-    // Small delay to let the browser register the fixed position 
-    // before we give it the new random coordinates
-    setTimeout(() => {
-        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-        
-        noBtn.style.left = `${x}px`;
-        noBtn.style.top = `${y}px`;
-    }, 10);
+function openLetter() {
+    document.getElementById('envelope').classList.add('open');
 }
 
-noBtn.addEventListener('mouseover', moveButton);
-noBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // Prevents phone from clicking the button
-    moveButton();
-});
+function wrongButton(event) {
+    event.stopPropagation(); // Prevents the envelope from clicking
+    const btn = event.target;
+    btn.innerHTML = "Wait, what?";
+    btn.style.transform = "scale(0.8)";
+    alert("Oops! I think you meant to click the big red button! 😉");
+}
 
-noBtn.addEventListener('mouseover', moveButton);
-noBtn.addEventListener('touchstart', moveButton); // For mobile users
-
-function celebrate() {
-    // Change text
-    questionText.innerHTML = "I knew you'd say YES! 💖✨";
+function celebrate(event) {
+    event.stopPropagation();
     
-    // Hide buttons
-    noBtn.style.display = 'none';
-    yesBtn.style.display = 'none';
+    // Hide the envelope
+    document.getElementById('envelope').style.display = 'none';
+    
+    // Show the final message
+    document.getElementById('final-message').classList.remove('hidden');
 
-    // Fire confetti celebration
-    confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#ff4d6d', '#ff758f', '#ffb3c1']
-    });
+    // Confetti Explosion
+    var duration = 5 * 1000;
+    var animationEnd = Date.now() + duration;
+    var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+    function randomInRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    var interval = setInterval(function() {
+      var timeLeft = animationEnd - Date.now();
+      if (timeLeft <= 0) return clearInterval(interval);
+
+      var particleCount = 50 * (timeLeft / duration);
+      confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+      confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+    }, 250);
 }
