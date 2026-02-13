@@ -1,61 +1,71 @@
-const yesBtn = document.getElementById('yesBtn');
-const noBtn = document.getElementById('noBtn');
 const firstScreen = document.getElementById('first-screen');
 const secondScreen = document.getElementById('second-screen');
-const music = document.getElementById('loveSong');
+const yesBtn = document.getElementById('yesBtn');
+const noBtn = document.getElementById('noBtn');
 
 let clickCount = 0;
-
-const noPhrases = [
-    "No",
-    "Are you sure, Ahlam?",
-    "Really sure?",
-    "Don't do this to me!",
-    "I'm gonna cry...",
-    "You're breaking my heart!",
-    "Just click YES already! ❤️"
-];
+const noPhrases = ["No", "Are you sure, Ahlam?", "Please?", "Think about it!", "Don't be mean!", "Last chance!"];
 
 function moveButton() {
     clickCount++;
-    // Change text
     noBtn.innerHTML = noPhrases[clickCount % noPhrases.length];
     
-    // Make Yes button HUGE
-    const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
-    yesBtn.style.fontSize = `${currentSize * 1.2}px`;
-    yesBtn.style.width = `${yesBtn.offsetWidth * 1.2}px`;
+    // Make the Yes button grow more noticeably
+    const newSize = 1.2 + (clickCount * 0.2);
+    yesBtn.style.transform = `scale(${newSize})`;
+    
+    // Move the No button slightly so it feels like it's trying to hide
+    const x = (Math.random() - 0.5) * 100;
+    const y = (Math.random() - 0.5) * 100;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
 }
 
 function startCelebration() {
-    // 1. Hide first screen, show second
-    firstScreen.style.display = "none";
-    secondScreen.classList.remove("hidden");
+    firstScreen.classList.add('hidden');
+    secondScreen.classList.remove('hidden');
 
-    // 2. Play Music (Browsers require interaction to play audio, so this works perfectly)
-    music.volume = 0.5;
-    music.play().catch(error => console.log("Music blocked by browser policy"));
+    // 1. Initial Blast
+    confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#ff0000', '#ff69b4', '#ffffff']
+    });
 
-    // 3. Start the floating hearts animation
-    setInterval(createHeart, 300);
+    // 2. Delayed Side Blasts
+    setTimeout(() => {
+        confetti({
+            particleCount: 100,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: ['#ff0000', '#ff69b4']
+        });
+        confetti({
+            particleCount: 100,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: ['#ff0000', '#ff69b4']
+        });
+    }, 500);
+
+    // 3. Infinite Rose Petals Rain
+    setInterval(createPetal, 200);
 }
 
-function createHeart() {
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-    heart.innerHTML = Math.random() < 0.5 ? '❤️' : '🌹'; // Randomly choose heart or rose
+function createPetal() {
+    const items = ['🌸', '❤️', '🌹', '✨', '💖'];
+    const item = document.createElement('div');
+    item.classList.add('floating-item');
+    item.innerHTML = items[Math.floor(Math.random() * items.length)];
     
-    // Randomize position and size
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+    item.style.left = Math.random() * 100 + 'vw';
+    item.style.fontSize = Math.random() * 20 + 15 + 'px';
+    item.style.animationDuration = Math.random() * 3 + 2 + 's';
+    item.style.opacity = Math.random();
     
-    // Randomize animation speed
-    heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+    document.body.appendChild(item);
     
-    document.body.appendChild(heart);
-
-    // Remove heart after it floats up to keep browser clean
-    setTimeout(() => {
-        heart.remove();
-    }, 5000);
+    setTimeout(() => { item.remove(); }, 5000);
 }
