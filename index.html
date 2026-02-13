@@ -1,34 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Ahlam ❤️</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahlam ❤️ Be My Valentine</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff4e8a, #ff9ecf);
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* Page Sections */
+.section {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+/* Card */
+.card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Text */
+h1 {
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+/* Buttons */
+.buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+button {
+    padding: 12px 22px;
+    font-size: 16px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#yesBtn {
+    background: #ff2e63;
+    color: white;
+}
+
+#noBtn {
+    background: white;
+    color: #ff2e63;
+}
+
+/* YES animation pulse */
+.pulse {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Love Page */
+#lovePage {
+    background: linear-gradient(135deg, #ff2e63, #ff85a2);
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+.showLove {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* GIF container */
+.gifs {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.gifs img {
+    width: 200px;
+    border-radius: 15px;
+}
+
+/* Floating Hearts */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(100vh);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-10vh);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 22px; }
+    p { font-size: 16px; }
+    button { font-size: 14px; padding: 10px 18px; }
+}
+</style>
 </head>
+
 <body>
 
-    <div class="container">
-        <div id="first-screen">
-            <img class="gif" src="https://media1.tenor.com/m/f37k-R889c8AAAAC/peach-goma-peach-and-goma.gif" alt="Cute Bear">
-            <h1 class="title">Ahlam, my love...</h1>
-            <p class="subtitle">Will you be my Valentine?</p>
-            
-            <div class="btn-group">
-                <button id="yesBtn" onclick="startCelebration()">YES! ❤️</button>
-                <button id="noBtn" onclick="moveButton()">No</button>
-            </div>
-        </div>
+<!-- QUESTION PAGE -->
+<div class="section" id="questionPage">
+    <div class="card">
+        <h1>Ahlam ❤️</h1>
+        <p>You make my world brighter every day.<br>
+        Will you be my Valentine?</p>
 
-        <div id="second-screen" class="hidden">
-            <img class="gif" src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Kisses">
-            <h1 class="title">I Love You, Ahlam! 🌹</h1>
-            <p class="message">You’ve made me the happiest person alive.<br>I can't wait to spend the day with you!</p>
+        <div class="buttons">
+            <button id="yesBtn">Yes 😍</button>
+            <button id="noBtn">No 😅</button>
         </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="script.js"></script>
+<!-- LOVE PAGE -->
+<div class="section" id="lovePage">
+    <div class="card">
+        <h1>You said YES!!! 💖</h1>
+        <p>You just made me the happiest man alive, Ahlam ❤️<br>
+        Forever yours.</p>
+
+        <div class="gifs">
+            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+            <img src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif">
+        </div>
+    </div>
+</div>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const questionPage = document.getElementById("questionPage");
+const lovePage = document.getElementById("lovePage");
+
+let yesScale = 1;
+let noClicks = 0;
+
+const noTexts = [
+    "Are you sure? 🥺",
+    "Think again 😢",
+    "Please? 😭",
+    "Don't break my heart 💔",
+    "Last chance 😳",
+    "You can't escape 😏",
+    "Nice try 😂"
+];
+
+yesBtn.addEventListener("click", () => {
+
+    // Transition animation
+    questionPage.classList.add("hidden");
+    lovePage.classList.add("showLove");
+
+    // Massive heart explosion
+    createHearts(50);
+});
+
+noBtn.addEventListener("click", () => {
+    noClicks++;
+
+    yesScale += 0.25;
+    yesBtn.style.transform = `scale(${yesScale})`;
+    yesBtn.classList.add("pulse");
+
+    if (noClicks < noTexts.length) {
+        noBtn.textContent = noTexts[noClicks];
+    } else {
+        noBtn.style.display = "none";
+    }
+});
+
+function createHearts(count) {
+    for (let i = 0; i < count; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (15 + Math.random() * 30) + "px";
+        heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+    }
+}
+
+// continuous subtle hearts
+setInterval(() => createHearts(2), 1000);
+</script>
+
 </body>
 </html>
