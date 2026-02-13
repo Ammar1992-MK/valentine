@@ -3,30 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Wife ❤️</title>
+    <title> Ahlam ❤️</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="container">
         <div id="first-screen">
-            <img class="gif" src="https://media.tenor.com/K_qOab9F6WIAAAAi/mocha-bear-hearts.gif" alt="Cute bear">
-            <h1>Will you be my Valentine?</h1>
+            <img class="gif" src="https://media1.tenor.com/m/f37k-R889c8AAAAC/peach-goma-peach-and-goma.gif" alt="Cute Bear">
+            <h1 class="title">Ahlam, my love...</h1>
+            <p class="subtitle">Will you be my Valentine?</p>
+            
             <div class="btn-group">
-                <button id="yesBtn" onclick="nextPage()">Yes</button>
+                <button id="yesBtn" onclick="startCelebration()">YES! ❤️</button>
                 <button id="noBtn" onclick="moveButton()">No</button>
             </div>
         </div>
 
         <div id="second-screen" class="hidden">
-            <img class="gif" src="https://media.tenor.com/U0phZ8A4aWSAAAAi/cute-bear-love.gif" alt="Hugging bears">
-            <h1>YAY! I knew you'd say yes! ❤️</h1>
-            <p>I love you so much!</p>
+            <img class="gif" src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Kisses">
+            <h1 class="title">I Love You, Ahlam! 🌹</h1>
+            <p class="message">You are the best thing that ever happened to me.<br>Can't wait to celebrate with you! xoxo</p>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <audio id="loveSong" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    </audio>
+
     <script src="script.js"></script>
 </body>
 </html>
