@@ -24,12 +24,13 @@ h1 {
 }
 
 .btn-group {
-    position: relative;
-    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
+    margin-top: 20px;
+    position: relative; /* Container for the buttons */
+    min-height: 50px;
 }
 
 button {
@@ -49,7 +50,10 @@ button {
 #noBtn {
     background-color: #ffccd5;
     color: #ff4d6d;
-    position: absolute; /* Needed for the jumping effect */
+    position: relative; 
+    /* This line makes it smooth! */
+    transition: all 0.3s ease-out; 
+    z-index: 999;
 }
 
 /* Mobile adjustments */
