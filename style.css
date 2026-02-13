@@ -1,0 +1,59 @@
+body {
+    background-color: #ffeef2;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden; /* Prevents scrolling if button moves outside */
+}
+
+#main-container {
+    text-align: center;
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+    max-width: 90%;
+}
+
+h1 {
+    color: #ff4d6d;
+    margin-bottom: 2rem;
+}
+
+.btn-group {
+    position: relative;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#yesBtn {
+    background-color: #ff4d6d;
+    color: white;
+}
+
+#noBtn {
+    background-color: #ffccd5;
+    color: #ff4d6d;
+    position: absolute; /* Needed for the jumping effect */
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+    h1 { font-size: 1.5rem; }
+    button { padding: 12px 25px; }
+}
