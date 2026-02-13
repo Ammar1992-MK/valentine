@@ -6,109 +6,88 @@
 
 body {
     font-family: 'Nunito', sans-serif;
-    background: linear-gradient(180deg, #ffdde1 0%, #ee9ca7 100%);
+    background: linear-gradient(135deg, #fff5f5 0%, #fed7e2 100%);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    position: relative;
 }
 
 .container {
     text-align: center;
     width: 90%;
     max-width: 400px;
-    z-index: 10; /* Keeps text above floating hearts */
+    z-index: 10;
 }
 
-/* Images */
 .gif {
-    width: 180px;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    width: 200px;
+    border-radius: 20px;
     margin-bottom: 20px;
 }
 
-/* Text Styling */
 .title {
-    font-family: 'Sacramento', cursive; /* Fancy romantic font */
-    color: #d6336c;
-    font-size: 2.5rem;
+    font-family: 'Sacramento', cursive;
+    color: #9b2c2c;
+    font-size: 3rem;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
 }
 
 .subtitle {
-    color: #a61e4d;
-    font-size: 1.2rem;
-    font-weight: bold;
+    color: #702459;
+    font-size: 1.3rem;
     margin-bottom: 30px;
 }
 
-.message {
-    font-size: 1.1rem;
-    color: #c2255c;
-    line-height: 1.6;
-    background: rgba(255,255,255,0.6);
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 10px;
-}
-
-/* Buttons */
 .btn-group {
     display: flex;
-    flex-direction: column; /* Stack them for mobile initially */
-    gap: 15px;
+    justify-content: center;
+    gap: 20px;
     align-items: center;
 }
 
 button {
-    padding: 15px 40px;
+    padding: 12px 30px;
     font-size: 1.2rem;
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    width: 200px; /* Uniform width */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 #yesBtn {
-    background-color: #ff4757;
+    background-color: #f56565;
     color: white;
     font-weight: bold;
-    box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
-    animation: pulse 1.5s infinite; /* Heartbeat effect */
+    box-shadow: 0 4px 15px rgba(245, 101, 101, 0.4);
 }
 
 #noBtn {
-    background-color: white;
-    color: #ff4757;
-    border: 2px solid #ff4757;
-    font-weight: bold;
-}
-
-/* Animations */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+    background-color: #edf2f7;
+    color: #4a5568;
 }
 
 .hidden { display: none; }
 
-/* Floating Hearts Animation Class */
-.heart {
-    position: absolute;
-    bottom: -50px;
-    color: #ff4757;
-    font-size: 24px;
-    animation: floatUp 4s linear infinite;
-    z-index: 1; /* Behind the text */
+#second-screen {
+    animation: fadeIn 1.5s ease-in-out;
 }
 
-@keyframes floatUp {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Floating Elements */
+.floating-item {
+    position: absolute;
+    top: -10%;
+    pointer-events: none;
+    z-index: 1;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); }
 }
