@@ -2,27 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Wife ❤️</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <div class="container">
-        <div id="envelope" onclick="openLetter()">
-            <div class="flap"></div>
-            <div class="letter">
-                <h1 id="question">Will you be my Valentine?</h1>
-                <div class="btns">
-                    <button class="yes-btn" onclick="celebrate(event)">Yes!</button>
-                    <button class="no-btn" onclick="wrongButton(event)">No</button>
-                </div>
+        <div id="first-screen">
+            <img class="gif" src="https://media.tenor.com/K_qOab9F6WIAAAAi/mocha-bear-hearts.gif" alt="Cute bear">
+            <h1>Will you be my Valentine?</h1>
+            <div class="btn-group">
+                <button id="yesBtn" onclick="nextPage()">Yes</button>
+                <button id="noBtn" onclick="moveButton()">No</button>
             </div>
-            <div class="heart">❤️</div>
         </div>
 
-        <div id="final-message" class="hidden">
-            <h2>I love you more than words can say! 🌹</h2>
-            <p>See you on our date! ❤️</p>
+        <div id="second-screen" class="hidden">
+            <img class="gif" src="https://media.tenor.com/U0phZ8A4aWSAAAAi/cute-bear-love.gif" alt="Hugging bears">
+            <h1>YAY! I knew you'd say yes! ❤️</h1>
+            <p>I love you so much!</p>
         </div>
     </div>
 
